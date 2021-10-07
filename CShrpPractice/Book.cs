@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CShrpPractice
 {
-    class Book
+    public class Book
     {
         public Book(string name) //Constructor method same name as class & Cannot have a return type BECAUSE IT IS A constructor
         {             // This code will execute everytime we use new keyword for class Book to create constructor for Book();
@@ -17,7 +17,27 @@ namespace CShrpPractice
         {
             this.grades.Add(grade); // Constructor Book();  Will Execute before Invoking AddGrade that will try to use that field. 
         } //this keyword refers to FIELD Paramater!!!
+
+        public Statistics GetStatistics() 
+        {
+            var result = new Statistics();
+            result.Average = 0.0;
+            result.High = double.MinValue;
+            result.Low = double.MaxValue;
+
+            foreach (var grade in grades)
+            {
+                result.Low = Math.Min(grade, result.Low);
+                result.High = Math.Max(grade, result.High);
+                result.Average += grade;
+            }
+            result.Average /= grades.Count;
+            return result;
+        }
+
+
         public List<double> grades;//this field is NOW PUBLIC outside of this calss. 
         public string name; // our FIELD Varaible for Name of book
+
     }
 }
